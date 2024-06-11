@@ -1,13 +1,36 @@
 
 
 
+
+import { Suspense } from "react"
+import AuthContextProvider from "./contexts/AuthContext"
+import ModalContextProvider from "./contexts/ModalContext"
+import ProductContainerProvider from "./contexts/ProductContext"
+import RouterFn from "./route"
+import Spinner from "./components/Spinner"
+import UserContextProvider from "./contexts/UserContext"
+
+
+
+
 function App() {
 
 
   return (
-    <h1 className="text-3xl bg-blue-500 font-bold underline">
-    Hello world!
-  </h1>
+  <Suspense fallback={<Spinner/>}>
+    <AuthContextProvider>
+      <UserContextProvider>
+        <ProductContainerProvider>
+          <ModalContextProvider>
+
+          <RouterFn/>
+
+          </ModalContextProvider>
+        </ProductContainerProvider>
+      </UserContextProvider>
+    </AuthContextProvider>
+  </Suspense>
+
   )
 }
 

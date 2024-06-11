@@ -1,11 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-:root {
+/* body {
+  @apply  font-family: "Times New Roman", Times, serif;
+} */
+
+
+/* :root {
   font-family:  Helvetica, Arial, sans-serif;
   background-color: #f0f2f5;
 
 
+} */
+
+@keyframes bounceToTopRight {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(45vw, -50vh) scale(0);
+    opacity: 0;
+  }
+}
+
+.bounce-to-top-right {
+  animation: bounceToTopRight 1500ms ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 800ms; /* ระยะเวลาที่ใช้ในการเล่น animation */
+  animation-fill-mode: forwards; /* ทำให้ค่าสุดท้ายของ animation ถูกทำให้คงที่หลังจากจบการเล่น */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
