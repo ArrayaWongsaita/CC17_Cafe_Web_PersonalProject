@@ -1,18 +1,24 @@
 
-import OrderDetail from "../../../components/OrderDetail";
-import useModalAdmin from "../hooks/useModalAdmin";
-import useOrder from "../hooks/useOrder";
+import useOrder from '../hooks/useOrder';
+import useModalAdmin from '../hooks/useModalAdmin';
+import OrderDetail from '../../../components/OrderDetail';
 
-export default function ProcessingOder() {
+export default function OrderAdminForm({filterBy}) {
   const { allOrder,  editOrder} = useOrder();
-  const {showImageModal, } = useModalAdmin()
+  const {showImageModal} = useModalAdmin()
 
-  const processingOder = allOrder.filter(item => item.status === "Processing")
+  let shippedOrder;
+
+  if (filterBy) {
+    shippedOrder = allOrder.filter(item => item.status === filterBy);
+  } else {
+    shippedOrder = allOrder;
+  }
 
   return (
     <div className="flex flex-col px-20 py-10 gap-7 min-h-screen ">
-      {processingOder.length > 0 &&
-        processingOder.map((item) => (
+      {shippedOrder.length > 0 &&
+        shippedOrder.map((item) => (
           <OrderDetail
             key={item.id}
             address={item.address}

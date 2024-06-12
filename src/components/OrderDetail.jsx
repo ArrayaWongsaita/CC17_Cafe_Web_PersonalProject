@@ -170,7 +170,7 @@ export default function OrderDetail({
           </div>
 
         </div>
-        <div className="py-3 flex flex-col justify-around">
+        <div className="py-3 flex flex-col gap-3 justify-center">
           <div className="w-40">
             <Button onClick={handleSave}>Save</Button>
           </div>
@@ -222,7 +222,7 @@ export default function OrderDetail({
         <div>
         </div>
       </div>
-      <div className="py-3 flex flex-col justify-around">
+      <div className="py-3 flex flex-col gap-2 justify-center ">
         {    editOrder && <div className="w-40">
           <Button onClick={() => setIsEdit(true)}>Edit</Button>
         </div>}
