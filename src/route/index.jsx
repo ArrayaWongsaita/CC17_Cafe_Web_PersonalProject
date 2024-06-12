@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import OrderAdminForm from "../features/admin/components/OrderAdminForm";
+import MainProduct from "../features/product/components/MainProduct";
 
 
 const MainCart = lazy(() => import( "../features/cart/components/MainCart"));
@@ -25,9 +26,9 @@ const MainOrderContainer = lazy(() =>
 const OrderForm = lazy(() =>
   import("../features/ordered/components/OrderForm")
 );
-const UserContextProvider = lazy(() =>
-  import("../contexts/UserContext")
-);
+// const UserContextProvider = lazy(() =>
+//   import("../contexts/UserContext")
+// );
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const HomeContainer = lazy(() =>
   import("../features/home/components/HomeContainer")
@@ -40,9 +41,9 @@ const router = createBrowserRouter([
       <Suspense fallback={<div>Loading...</div>}>
         <OrderContextProvider>
           <ModalAdminContextProvider>
-            <UserContextProvider>
+
               <MainContainer />
-            </UserContextProvider>
+
           </ModalAdminContextProvider>
         </OrderContextProvider>
       </Suspense>
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomeContainer /> },
       { path: "/cart", element: <MainCart/>},
-      { path: "product", element: <h1>product</h1> },
+      { path: "product", element: <MainProduct/> },
       {
         path: "admin",
         element: <MainAdminContent />,

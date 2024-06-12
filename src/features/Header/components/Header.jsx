@@ -8,7 +8,7 @@ import LeftHeader from './LeftHeader';
 export default function Header() {
 
   return (
-    <header className="px-3   flex text-customBrown justify-between h-[48px] items-center">
+    <header className="px-3 z-10  sticky top-0 bg-white  opacity-90 flex text-customBrown justify-between h-[48px] items-center">
       <div >
         <LeftHeader/>
       </div>

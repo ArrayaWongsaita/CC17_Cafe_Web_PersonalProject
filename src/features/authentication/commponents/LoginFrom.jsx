@@ -5,6 +5,7 @@ import validateLogin from "../validators/validate-login";
 import useAuth from "../../../hooks/useAuth";
 import useModal from "../../../hooks/useModal";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -19,6 +20,7 @@ export default function LoginFrom({data = null}) {
   const [inputError, setInputError] = useState({...initialInput});
   const {login} = useAuth()
   const {modalRegister,loginSuccessModal} = useModal()
+  const navigate = useNavigate()
   // console.log(a)
 
   useEffect(()=>{
@@ -44,6 +46,7 @@ export default function LoginFrom({data = null}) {
       setInputError({...initialInput});
       await login(input)
       await loginSuccessModal()
+      await navigate('/')
 
 
     } catch (error) {

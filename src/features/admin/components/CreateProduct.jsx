@@ -16,9 +16,9 @@ const defaultInput = {
 }
 
 export default function CreateProduct({data = null}) {
-  const [isLoading, setIsLoading] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null);
   const [input, setInput] =useState(defaultInput)
+  const [isLoading, setIsLoading] = useState(false)
   const [file,setFile] = useState()
   const fileEl = useRef()
   const {createProduct,editProduct} = useProduct()

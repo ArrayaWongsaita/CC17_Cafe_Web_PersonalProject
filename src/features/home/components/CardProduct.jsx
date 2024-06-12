@@ -26,7 +26,9 @@ export default function CardProduct({
 
 
   const handleByAdmin = () => {
-    if(!handleParent)return
+    if(!handleParent){
+      onClick(productName,data)
+    }else{
     const data = {
       productId,
       productName, 
@@ -37,14 +39,14 @@ export default function CardProduct({
     }
     handleParent(data)
     console.log("modal")
-
+  }
     
   }
 
   
 
   return (
-    <div onClick={handleByAdmin} className={` ${(isShow === true)? "bg-white":"bg-red-100"}  flex flex-col mx-auto w-[255px] rounded-lg   px-[10px] py-[15px]`}>
+    <div onClick={handleByAdmin} className={` ${(isShow === true)? "bg-white":"bg-red-100"} hover:scale-[110%]  flex flex-col mx-auto w-[255px] rounded-lg   px-[10px] py-[15px]`}>
       <div
         style={{
           backgroundImage: `url(${image || imageUrl})`,

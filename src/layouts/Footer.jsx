@@ -1,22 +1,36 @@
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
+
 export default function Footer() {
   return (
-    <div className="w-full bg-customFooter">
-      <div className="w-full flex justify-center">
-        <h1 className="m-auto text-3xl text-customBrown py-10">The Ribbon</h1>
-      </div>
-      <div className="w-full flex justify-evenly">
-        <div className="flex-1  flex justify-center pb-8">
-          <div className="px4 w-4/5">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus facilis commodi, laudantium dolor repudiandae deleniti
-              debitis velit harum molestias blanditiis quod veritatis alias
-              dolorum, cupiditate, nihil incidunt magni similique voluptate.
-            </p>
-          </div>
+    <footer className="bg-customPink text-white py-6">
+      <div className="container mx-auto flex flex-col items-center">
+        <h1 className="text-2xl font-bold mb-4">The Ribbon</h1>
+        <p className="mb-4">The best cakes in town</p>
+        <div className="text-center max-w-xl mb-4">
+          <p>
+            {`The Ribbon started as a small family-owned bakery in 1990. Our mission is to bring joy and sweetness into everyone's life with our delicious, hand-crafted cakes. Over the years, we have grown and expanded, but our commitment to quality and customer satisfaction remains the same. Thank you for making us a part of your special moments.`}
+          </p>
         </div>
-        <div className="flex-1">2</div>
+        <div className="flex space-x-4 mb-4">
+          <a 
+            href="https://www.facebook.com/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-white hover:text-gray-300"
+          >
+            <FaFacebook size={32} />
+          </a>
+          <a 
+            href="https://www.instagram.com/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-white hover:text-gray-300"
+          >
+            <FaInstagram size={32} />
+          </a>
+        </div>
+        <p className="mt-4">© 2024 The Ribbon. All rights reserved.</p>
       </div>
-    </div>
+    </footer>
   );
 }

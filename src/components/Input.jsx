@@ -2,7 +2,7 @@
 
 export default function Input({ placeholder , type = 'text', error , onChange, value, name}) {
   return (
-    <>
+    <div  className="relative flex flex-col">
     <input type={type} 
     name={name}
     value={value}
@@ -13,7 +13,7 @@ export default function Input({ placeholder , type = 'text', error , onChange, v
     
   }`}
   placeholder={placeholder} />
-  {error ? <small className="text-red-500">{error}</small> : null}
-  </>
+  {error ? <small className="text-red-500 absolute -bottom-6 ">{error}</small> : null}
+  </div>
   )
 }

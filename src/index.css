@@ -27,7 +27,7 @@
     opacity: 1;
   }
   100% {
-    transform: translate(45vw, -50vh) scale(0);
+    transform: translate(47vw, -50vh) scale(0);
     opacity: 0;
   }
 }
@@ -59,3 +59,6 @@
 .fade-in {
   animation: fadeIn 0.5s ease-in-out forwards;
 }
+
+
+

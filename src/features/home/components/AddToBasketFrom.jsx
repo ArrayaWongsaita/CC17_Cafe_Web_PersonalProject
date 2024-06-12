@@ -2,9 +2,11 @@ import { useState } from "react";
 import imageUrl from "../../../image/TheRibbon.jpg";
 import Button from "../../../components/Button";
 import useModal from "../../../hooks/useModal";
+import { useNavigate } from "react-router-dom";
 export default function AddToBasketFrom({ image, price, productId }) {
   const [amount, setAmount] = useState(1);
   const { addToBasket } = useModal();
+  const navagate = useNavigate()
 
   const handleAddToBasket = () => {
     const body = {
@@ -12,6 +14,20 @@ export default function AddToBasketFrom({ image, price, productId }) {
       amount,
     };
     addToBasket(body);
+  };
+  const handleByNow = async () => {
+    try {
+      const body = {
+        productId,
+        amount,
+      };
+      await addToBasket(body);
+      await setTimeout(() => {
+        navagate('/cart')
+      }, 800); 
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -56,7 +72,7 @@ export default function AddToBasketFrom({ image, price, productId }) {
         </Button>
       </div>
       <div className="w-full ">
-        <Button style="byNow">By now</Button>
+        <Button onClick={handleByNow} style="byNow">By now</Button>
       </div>
     </div>
   );

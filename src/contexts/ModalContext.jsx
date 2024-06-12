@@ -8,6 +8,8 @@ import useAuth from "../hooks/useAuth";
 import userApi from "../apis/user";
 
 import useUser from "../hooks/useUser";
+import InputAddress from "../features/cart/components/InputAddress";
+import UploadSlipAndOrderDetail from "../features/cart/components/UploadSlipAndOrderDetail";
 
 export const ModalContext = createContext();
 
@@ -19,7 +21,7 @@ export default function ModalContextProvider({ children }) {
   const [fadeOut, setFadeOut] = useState(false);
 
   const { authUser } = useAuth();
-  const { cartUser, setCartUser } = useUser();
+  const { cartUser, setCartUser,createOrder } = useUser();
   const handleEscPress = (e) => {
     if (e.key === "Escape") {
       handleCloseModal();
@@ -121,8 +123,38 @@ export default function ModalContextProvider({ children }) {
       console.log(error);
     }
   };
+  const uploadSlipAndOrderDetail = (orderDetail) => {
+    const AllOrderItem = cartUser.reduce((acc,item)=>{
+      acc.push({
+        productName:item.productDetail.productName,
+        amount: item.amount,
+        totalPrice: (item.productDetail.price * item.amount)
+
+      })
+      return acc
+    },[])
+    setTitleAndContent("Order detail", <UploadSlipAndOrderDetail AllOrderItem={AllOrderItem} orderDetail={orderDetail}/>)
+    handleOpenModal()
+  }
+  
+  const confirmAddress = (totalPayMent)=>{
+    setTitleAndContent("address",<InputAddress uploadSlipAndOrderDetail={uploadSlipAndOrderDetail} data={authUser} totalPayMent={totalPayMent}/>)
+    handleOpenModal()
+  }
+
+  const createOrderAndCloseModal = async (formData) => {
+    try {
+      await createOrder(formData)
+      await handleCloseModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const value = {
+    createOrderAndCloseModal,
+    uploadSlipAndOrderDetail,
+    confirmAddress,
     loginSuccessModal,
     registerSuccessModal,
     modalRegister,

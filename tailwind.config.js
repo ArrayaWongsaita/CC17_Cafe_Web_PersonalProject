@@ -9,6 +9,7 @@ export default  {
     extend: {
       gridTemplateColumns: {
         'auto-fit-minmax-255': 'repeat(auto-fit, minmax(255px, 1fr))',
+        'auto-fit-minmax-200': 'repeat(auto-fit, minmax(230px, 1fr))',
       },
       colors: {
         customBeige: '#f8f4ed',
