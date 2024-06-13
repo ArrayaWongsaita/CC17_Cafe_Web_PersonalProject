@@ -114,10 +114,10 @@ export default function UploadSlipAndOrderDetail({ orderDetail, AllOrderItem = [
             ></div>
             {selectedImage && (
               <div className="flex flex-col gap-4">
-                <Button style="addToBasket" onClick={handleCancel}>
+                <Button onClick={handleConfirmOrder}>ยืนยันการสั่งซื้อ</Button>
+                <Button style="cancel" onClick={handleCancel}>
                   ยกเลิก
                 </Button>
-                <Button onClick={handleConfirmOrder}>ยืนยันการสั่งซื้อ</Button>
               </div>
             )}
           </div>

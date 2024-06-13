@@ -19,19 +19,20 @@ export default function OrderContextProvider({children}) {
 
 
   useEffect(()=> {
-    const fetchAllOrder = async () => {
-      try {
-        if (getAccessToken()){
-          const res = await adminApi.getAllOrder()
-          setAllOrder(res.data)
-        }    
-      } catch (error) {
-        console.log(error)
-      } 
-    }
+  
     fetchAllOrder()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
+  const fetchAllOrder = async () => {
+    try {
+      if (getAccessToken()){
+        const res = await adminApi.getAllOrder()
+        setAllOrder(res.data)
+      }    
+    } catch (error) {
+      console.log(error)
+    } 
+  }
 
   const editOrder = async(formData) => {
     try {
@@ -52,7 +53,7 @@ export default function OrderContextProvider({children}) {
 
   const value = {
     editOrder ,
-
+    fetchAllOrder,
     allOrder
   }
 

@@ -24,7 +24,7 @@ export default function MainCart() {
       <div className="w-full h-24  bg-customPink flex justify-center items-center"></div>
       <div className="w-full min-h-[85vh]  flex justify-center bg-customBeige">
         <div className="w-full  flex">
-          <div className="w-full  grid grid-cols-auto-fit-minmax-200 px-4 bg-customFooter">
+          <div className="w-full  grid gap-6   grid-cols-auto-fit-minmax-200 px-4 bg-customFooter">
             {cartUser.length > 0 ? (
               cartUser.map((item, index) => (
                 <EditCart
@@ -50,7 +50,7 @@ export default function MainCart() {
             )}
           </div>
           {cartUser.length > 0 && (
-            <div className="w-1/3 relative min-w-[300px] pt-[25vh] h-full flex justify-center items-start bg-customLightBrown">
+            <div className="w-1/3 px-4 relative min-w-[300px] pt-[25vh] h-full flex justify-center items-start bg-customLightBrown">
               <AllCartDetail totalPayMent={totalPayMent} confirmAddress={confirmAddress} />
             </div>
           )}

@@ -1,12 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import OrderDetail from "../../../components/OrderDetail";
 import useUser from "../../../hooks/useUser";
 import useModalAdmin from "../../admin/hooks/useModalAdmin";
 
 export default function OrderForm({filterBy = null}) {
-  const {userOrder } = useUser();
+  const {userOrder ,fetchOrder} = useUser();
   const {showImageModal } = useModalAdmin();
 
+  useEffect(()=>{
+    if(userOrder.length === 0){
+      fetchOrder()
+    }
+  },[])
+
   let shippedOrder;
+
 
   if (filterBy) {
     shippedOrder = userOrder.filter(item => item.status === filterBy);

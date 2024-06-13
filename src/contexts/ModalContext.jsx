@@ -133,7 +133,7 @@ export default function ModalContextProvider({ children }) {
       })
       return acc
     },[])
-    setTitleAndContent("Order detail", <UploadSlipAndOrderDetail AllOrderItem={AllOrderItem} orderDetail={orderDetail}/>)
+    setTitleAndContent("Checkout", <UploadSlipAndOrderDetail AllOrderItem={AllOrderItem} orderDetail={orderDetail}/>)
     handleOpenModal()
   }
   

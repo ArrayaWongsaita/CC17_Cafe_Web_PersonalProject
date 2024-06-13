@@ -27,19 +27,20 @@ export default function UserContextProvider({children}) {
   },[])
 
   useEffect(()=> {
-    const fetchCart = async () => {
-      try {
-        if (getAccessToken()){
-          const res = await userApi.getOrder()
-          setUserOrder(res.data)
-        }    
-      } catch (error) {
-        console.log(error)
-      } 
-    }
-    fetchCart()
+  
+    fetchOrder()
   },[])
 
+  const fetchOrder = async () => {
+    try {
+      if (getAccessToken()){
+        const res = await userApi.getOrder()
+        setUserOrder(res.data)
+      }    
+    } catch (error) {
+      console.log(error)
+    } 
+  }
   const deleteItemInCart = async (cartId) => {
     try {
       await userApi.deleteItemInCart(cartId)
@@ -74,6 +75,7 @@ export default function UserContextProvider({children}) {
   }
 
   const value = {
+    fetchOrder,
     createOrder,
     editCartItem,
     cartUser,

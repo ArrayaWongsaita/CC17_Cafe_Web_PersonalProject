@@ -13,7 +13,7 @@ export default function AllCartDetail({
     confirmAddress(total)
   }
   return (
-    <div className="w-2/3 sticky top-[34vh] min-w-[300px] flex flex-col rounded-lg gap-5 bg-white py-7 px-7">
+    <div className="w-2/3  sticky top-[34vh] min-w-[300px] flex flex-col rounded-lg gap-5 bg-white py-7 px-7">
       <div className="text-center"><h1 className="text-xl font-semibold">Order Summary</h1></div>
       <div className="flex text-gray-400 justify-between">
         <div>Subtotal</div>

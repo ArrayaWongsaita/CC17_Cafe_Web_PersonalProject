@@ -15,6 +15,7 @@ export default function Dropdown({closeDropdown }) {
   const handleLogout = () => {
     logout()
     navigate("/")
+    window.location.reload();
   }
 
   
