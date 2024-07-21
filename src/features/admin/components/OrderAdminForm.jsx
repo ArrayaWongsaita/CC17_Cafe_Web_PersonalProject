@@ -1,24 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import useOrder from '../hooks/useOrder';
-import useModalAdmin from '../hooks/useModalAdmin';
-import OrderDetail from '../../../components/OrderDetail';
-import { useEffect } from 'react';
+import useOrder from "../hooks/useOrder";
+import useModalAdmin from "../hooks/useModalAdmin";
+import OrderDetail from "../../../components/OrderDetail";
+import { useEffect } from "react";
 
-export default function OrderAdminForm({filterBy}) {
-  const { allOrder,  editOrder,fetchAllOrder} = useOrder();
-  const {showImageModal} = useModalAdmin()
+export default function OrderAdminForm({ filterBy }) {
+  const { allOrder, editOrder, fetchAllOrder } = useOrder();
+  const { showImageModal } = useModalAdmin();
 
-  useEffect(()=>{
-    if(allOrder.length === 0 ){
-      fetchAllOrder()
+  useEffect(() => {
+    if (allOrder.length === 0) {
+      fetchAllOrder();
     }
-  },[])
+  }, []);
 
   let shippedOrder;
 
   if (filterBy) {
-    shippedOrder = allOrder.filter(item => item.status === filterBy);
+    shippedOrder = allOrder.filter((item) => item.status === filterBy);
   } else {
     shippedOrder = allOrder;
   }

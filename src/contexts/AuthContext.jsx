@@ -4,6 +4,7 @@ import { createContext } from "react";
 import authApi from "../apis/auth";
 import { removeAccessToken, setAccessToken } from "../utils/local-storage";
 import { getAccessToken } from "../utils/local-storage";
+import userApi from "../apis/user";
 // import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
@@ -39,14 +40,18 @@ export default function AuthContextProvider({ children }) {
   const logout = () => {
     removeAccessToken();
     setAuthUser(null);
-
+  };
+  const editUserProfile = async (data) => {
+    const result = await userApi.EditUserProfile(data);
+    console.log(result);
   };
 
   const value = {
-    logout, 
+    logout,
     login,
     authUser,
     isAuthUserLoading,
+    editUserProfile,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

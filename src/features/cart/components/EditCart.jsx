@@ -5,12 +5,12 @@ import imageUrl from "../../../image/TheRibbon.jpg";
 export default function EditCart({
   image = imageUrl,
   price = 1,
-  cartId ,
+  cartId,
   amountCart = 1,
   productName,
   deleteItemInCart,
   editCartItem,
-  productId
+  productId,
 }) {
   const [amount, setAmount] = useState(+amountCart);
   const [hasChanged, setHasChanged] = useState(false); // State to track if the amount has changed
@@ -19,19 +19,18 @@ export default function EditCart({
     if (hasChanged) {
       const timer = setTimeout(() => {
         console.log(amount);
-        editCartItem({amount,productId})
-
+        editCartItem({ amount, productId });
       }, 800);
 
       return () => clearTimeout(timer); // Clear the timeout if amount changes within 1 second
     } else {
-      setHasChanged(true); 
+      setHasChanged(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount]);
-  const handleDeleteCart = ()=>{
-    deleteItemInCart(cartId)
-  }
+  const handleDeleteCart = () => {
+    deleteItemInCart(cartId);
+  };
 
   return (
     <div className="m-auto  relative flex flex-col justify-start gap-4 items-center rounded-lg bg-white px-5 py-[15px] ">
@@ -76,7 +75,13 @@ export default function EditCart({
           </Button>
         </div>
       </div>
-      <div onClick={handleDeleteCart} role="button" className="absolute -top-2.5 -right-2.5 bg-red-600 w-6 h-6  rounded-full flex justify-center items-center"><div className="text-white text-sm">&#10005;</div></div>
+      <div
+        onClick={handleDeleteCart}
+        role="button"
+        className="absolute -top-2.5 -right-2.5 bg-red-600 w-6 h-6  rounded-full flex justify-center items-center"
+      >
+        <div className="text-white text-sm">&#10005;</div>
+      </div>
     </div>
   );
 }

@@ -9,8 +9,7 @@ const registerSchema = Joi.object({
     .required()
     .trim()
     .messages({ "string.empty": "Last name is required." }),
-    email: Joi.string()
-    .email({  tlds: { allow: ['com', 'net'] } }),
+  email: Joi.string().email({ tlds: { allow: ["com", "net"] } }),
   password: Joi.string()
     .required()
     .pattern(/^[0-9a-zA-Z]{6,}$/)
@@ -28,12 +27,14 @@ const registerSchema = Joi.object({
       "string.empty": "First name is required.",
       "any.only": "password and confirm password did not match",
     }),
-    address: Joi.string().required(),
-    phone: Joi.string().required().pattern(/^[0-9]{10}$/)
+  address: Joi.string().required(),
+  phone: Joi.string()
+    .required()
+    .pattern(/^[0-9]{10}$/),
 });
 
 const validateRegister = (input) => {
-  console.log(input)
+  console.log(input);
   const { error } = registerSchema.validate(input, { abortEarly: false });
 
   if (error) {

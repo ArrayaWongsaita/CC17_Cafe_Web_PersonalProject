@@ -4,23 +4,23 @@ import OrderDetail from "../../../components/OrderDetail";
 import useUser from "../../../hooks/useUser";
 import useModalAdmin from "../../admin/hooks/useModalAdmin";
 
-export default function OrderForm({filterBy = null}) {
-  const {userOrder ,fetchOrder} = useUser();
-  const {showImageModal } = useModalAdmin();
+export default function OrderForm({ filterBy = null }) {
+  const { userOrder, fetchOrder } = useUser();
+  const { showImageModal } = useModalAdmin();
 
-  useEffect(()=>{
-    if(userOrder.length === 0){
-      fetchOrder()
+  useEffect(() => {
+    if (userOrder.length === 0) {
+      fetchOrder();
     }
-  },[])
+  }, []);
 
   let shippedOrder;
 
-
   if (filterBy) {
-    shippedOrder = userOrder.filter(item => item.status === filterBy);
+    const result = userOrder.filter((item) => item.status === filterBy);
+    shippedOrder = result.reverse();
   } else {
-    shippedOrder = userOrder;
+    shippedOrder = userOrder.reverse();
   }
 
   return (

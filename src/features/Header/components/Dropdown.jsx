@@ -4,44 +4,39 @@ import useAuth from "../../../hooks/useAuth";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 
-export default function Dropdown({closeDropdown }) {
-  
+export default function Dropdown({ closeDropdown }) {
   const dropdownRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const {logout} = useAuth()
-
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    logout()
-    navigate("/")
+    logout();
+    navigate("/");
     window.location.reload();
-  }
+  };
 
-  
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       closeDropdown();
     }
   };
-  
 
   const handleEscapePress = (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       closeDropdown();
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscapePress);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscapePress);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscapePress);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapePress);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   return (
     <div
@@ -53,7 +48,7 @@ export default function Dropdown({closeDropdown }) {
     >
       <div className="py-1" role="none">
         <a
-          href="#"
+          href="/user"
           className="block px-4 py-2 text-sm text-customBrown hover:bg-gray-100"
           role="menuitem"
         >
@@ -73,9 +68,9 @@ export default function Dropdown({closeDropdown }) {
         >
           License
         </a>
-
-          <Button onClick={handleLogout} style="logout">Sign out</Button>
-
+        <Button onClick={handleLogout} style="logout">
+          Sign out
+        </Button>
       </div>
     </div>
   );

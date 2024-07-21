@@ -2,9 +2,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import OrderAdminForm from "../features/admin/components/OrderAdminForm";
 import MainProduct from "../features/product/components/MainProduct";
+import MainUser from "../features/user/components/MainUser";
+import Spinner from "../components/Spinner";
 
-
-const MainCart = lazy(() => import( "../features/cart/components/MainCart"));
+const MainCart = lazy(() => import("../features/cart/components/MainCart"));
 const MainAdminContent = lazy(() =>
   import("../features/admin/components/MainAdminContent")
 );
@@ -38,29 +39,46 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div>
+            <Spinner />
+          </div>
+        }
+      >
         <OrderContextProvider>
           <ModalAdminContextProvider>
-
-              <MainContainer />
-
+            <MainContainer />
           </ModalAdminContextProvider>
         </OrderContextProvider>
       </Suspense>
     ),
     children: [
       { path: "/", element: <HomeContainer /> },
-      { path: "/cart", element: <MainCart/>},
-      { path: "product", element: <MainProduct/> },
+      { path: "/user", element: <MainUser /> },
+      { path: "/cart", element: <MainCart /> },
+      { path: "product", element: <MainProduct /> },
       {
         path: "admin",
         element: <MainAdminContent />,
         children: [
-          { path: "/admin/order/pending", element:<OrderAdminForm filterBy={"Pending"}/>},
-          { path: "/admin/order/processing", element:<OrderAdminForm filterBy={"Processing"}/> },
-          { path: "/admin/order/shipped", element: <OrderAdminForm filterBy={"Shipped"}/> },
-          { path: "/admin/order/delivered", element: <OrderAdminForm filterBy={"Delivered"}/> },
-          { path: "/admin/order/all", element:<OrderAdminForm /> },
+          {
+            path: "/admin/order/pending",
+            element: <OrderAdminForm filterBy={"Pending"} />,
+          },
+          {
+            path: "/admin/order/processing",
+            element: <OrderAdminForm filterBy={"Processing"} />,
+          },
+          {
+            path: "/admin/order/shipped",
+            element: <OrderAdminForm filterBy={"Shipped"} />,
+          },
+          {
+            path: "/admin/order/delivered",
+            element: <OrderAdminForm filterBy={"Delivered"} />,
+          },
+          { path: "/admin/order/all", element: <OrderAdminForm /> },
           { path: "/admin/product/create", element: <CreateProduct /> },
           { path: "/admin/product/edit", element: <EditProduct /> },
         ],

@@ -11,7 +11,7 @@ import useUser from "../hooks/useUser";
 import InputAddress from "../features/cart/components/InputAddress";
 import UploadSlipAndOrderDetail from "../features/cart/components/UploadSlipAndOrderDetail";
 
-export const ModalContext = createContext();
+export const ModalContext = createContext("");
 
 export default function ModalContextProvider({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function ModalContextProvider({ children }) {
   const [fadeOut, setFadeOut] = useState(false);
 
   const { authUser } = useAuth();
-  const { cartUser, setCartUser,createOrder } = useUser();
+  const { cartUser, setCartUser, createOrder } = useUser();
   const handleEscPress = (e) => {
     if (e.key === "Escape") {
       handleCloseModal();
@@ -36,6 +36,7 @@ export default function ModalContextProvider({ children }) {
   const handleCloseModal = () => {
     setTimeout(() => {
       setIsModalOpen(false);
+
       document.removeEventListener("keydown", handleEscPress);
       document.documentElement.style.overflowY = "auto";
       setFadeOut(false);
@@ -124,32 +125,44 @@ export default function ModalContextProvider({ children }) {
     }
   };
   const uploadSlipAndOrderDetail = (orderDetail) => {
-    const AllOrderItem = cartUser.reduce((acc,item)=>{
+    const AllOrderItem = cartUser.reduce((acc, item) => {
       acc.push({
-        productName:item.productDetail.productName,
+        productName: item.productDetail.productName,
         amount: item.amount,
-        totalPrice: (item.productDetail.price * item.amount)
+        totalPrice: item.productDetail.price * item.amount,
+      });
+      return acc;
+    }, []);
+    setTitleAndContent(
+      "Checkout",
+      <UploadSlipAndOrderDetail
+        AllOrderItem={AllOrderItem}
+        orderDetail={orderDetail}
+      />
+    );
+    handleOpenModal();
+  };
 
-      })
-      return acc
-    },[])
-    setTitleAndContent("Checkout", <UploadSlipAndOrderDetail AllOrderItem={AllOrderItem} orderDetail={orderDetail}/>)
-    handleOpenModal()
-  }
-  
-  const confirmAddress = (totalPayMent)=>{
-    setTitleAndContent("address",<InputAddress uploadSlipAndOrderDetail={uploadSlipAndOrderDetail} data={authUser} totalPayMent={totalPayMent}/>)
-    handleOpenModal()
-  }
+  const confirmAddress = (totalPayMent) => {
+    setTitleAndContent(
+      "address",
+      <InputAddress
+        uploadSlipAndOrderDetail={uploadSlipAndOrderDetail}
+        data={authUser}
+        totalPayMent={totalPayMent}
+      />
+    );
+    handleOpenModal();
+  };
 
   const createOrderAndCloseModal = async (formData) => {
     try {
-      await createOrder(formData)
-      await handleCloseModal()
+      await createOrder(formData);
+      await handleCloseModal();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const value = {
     createOrderAndCloseModal,

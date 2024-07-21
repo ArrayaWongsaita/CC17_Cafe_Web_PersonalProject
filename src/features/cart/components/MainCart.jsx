@@ -15,7 +15,7 @@ export default function MainCart() {
   }, []);
 
   const totalPayMent = cartUser.reduce((acc, item) => {
-    acc = acc + (item.amount * item.productDetail?.price);
+    acc = acc + item.amount * item.productDetail?.price;
     return acc;
   }, 0);
 
@@ -43,7 +43,10 @@ export default function MainCart() {
               <div className="flex justify-center items-center w-full h-full">
                 <Link to="/product">
                   <div className="px-10 py-5 bg-customPink rounded-lg">
-                    <Button>You cart is Empty. Shop now</Button>
+                    <Button>
+                      <p className="text-customBrown">You cart is Empty.</p>{" "}
+                      Click here for Shop now
+                    </Button>
                   </div>
                 </Link>
               </div>
@@ -51,7 +54,10 @@ export default function MainCart() {
           </div>
           {cartUser.length > 0 && (
             <div className="w-1/3 px-4 relative min-w-[300px] pt-[25vh] h-full flex justify-center items-start bg-customLightBrown">
-              <AllCartDetail totalPayMent={totalPayMent} confirmAddress={confirmAddress} />
+              <AllCartDetail
+                totalPayMent={totalPayMent}
+                confirmAddress={confirmAddress}
+              />
             </div>
           )}
         </div>

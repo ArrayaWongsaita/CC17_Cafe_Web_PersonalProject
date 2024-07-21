@@ -1,11 +1,9 @@
+import axios from "../configs/axiosConfig";
 
-import axios from '../configs/axiosConfig'
+const authApi = {};
 
-const authApi = {}
+authApi.register = (body) => axios.post("/auth/register", body);
+authApi.login = (body) => axios.post("/auth/login", body);
+authApi.getAuthUser = (body) => axios.get("/auth/me", body);
 
-
-authApi.register = (body) => axios.post('/auth/register', body);
-authApi.login = (body) => axios.post('/auth/login', body)
-authApi.getAuthUser = (body) => axios.get('/auth/me', body)
-
-export default authApi
+export default authApi;

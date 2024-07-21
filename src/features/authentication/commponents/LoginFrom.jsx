@@ -3,33 +3,28 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import validateLogin from "../validators/validate-login";
 import useAuth from "../../../hooks/useAuth";
-import useModal from "../../../hooks/useModal";
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-
-
-
+import useModal from "../../../hooks/useModal";
 
 const initialInput = {
   email: "",
   password: "",
 };
-export default function LoginFrom({data = null}) {
-  const [input, setInput] = useState({...initialInput})
-  const [inputError, setInputError] = useState({...initialInput});
-  const {login} = useAuth()
-  const {modalRegister,loginSuccessModal} = useModal()
-  const navigate = useNavigate()
-  // console.log(a)
+export default function LoginFrom({ data }) {
+  const [input, setInput] = useState({ ...initialInput });
+  const [inputError, setInputError] = useState({ ...initialInput });
+  const { login } = useAuth();
+  const { modalRegister, loginSuccessModal } = useModal();
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-
-    if(data){
-      return setInput({email:data.email,password:data.password})
+  useEffect(() => {
+    if (data) {
+      return setInput({ email: data.email, password: data.password });
     }
-    setInput({...initialInput})
-  },[data])
+    setInput({ ...initialInput });
+  }, [data]);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -38,54 +33,61 @@ export default function LoginFrom({data = null}) {
   const handleSubmitFrom = async (e) => {
     try {
       e.preventDefault();
-      const error = validateLogin(input)
-      console.log(error)
+      const error = validateLogin(input);
+      console.log(error);
       if (error) {
         return setInputError(error);
       }
-      setInputError({...initialInput});
-      await login(input)
-      await loginSuccessModal()
-      await navigate('/')
-
-
+      setInputError({ ...initialInput });
+      await login(input);
+      await loginSuccessModal();
+      navigate("/");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
+  };
 
   return (
     <>
-    <form className="w-[350px]" onSubmit={handleSubmitFrom}>
-      <div className="py-3">
-      {input.email ? <p className="px-3 py-3 text-[14px] text-customBrown">Email</p> : <div className="h-8" ></div>}
-        <Input 
-          onChange={handleChangeInput}
-          name={'email'}
-          value={input.email}
-          error={(inputError.email)}
-          placeholder={"Email address "}
-         />
-
+      <form className="w-[350px]" onSubmit={handleSubmitFrom}>
+        <div className="py-3">
+          {input.email ? (
+            <p className="px-3 py-3 text-[14px] text-customBrown">Email</p>
+          ) : (
+            <div className="h-8"></div>
+          )}
+          <Input
+            onChange={handleChangeInput}
+            name={"email"}
+            value={input.email}
+            error={inputError.email}
+            placeholder={"Email address "}
+          />
+        </div>
+        <div>
+          {input.password ? (
+            <p className="px-3 py-3 text-[14px] text-customBrown">Password</p>
+          ) : (
+            <div className="h-8"></div>
+          )}
+          <Input
+            type="password"
+            onChange={handleChangeInput}
+            name={"password"}
+            value={input.password}
+            error={inputError.password}
+            placeholder={"password"}
+          />
+        </div>
+        <div className="py-7">
+          <Button>Login</Button>
+        </div>
+      </form>
+      <div className="mb-3">
+        <Button onClick={modalRegister} style="register">
+          register
+        </Button>
       </div>
-      <div>
-      {input.password ? <p className="px-3 py-3 text-[14px] text-customBrown">Password</p> : <div className="h-8" ></div>}
-        <Input 
-          type="password"
-          onChange={handleChangeInput}
-          name={'password'}
-          value={input.password}
-          error={(inputError.password)}
-          placeholder={"password"}
-         />
-
-      </div>
-      <div className="py-7">
-        <Button>Login</Button>
-      </div>
-    </form>
-    <div className="mb-3" ><Button onClick={modalRegister} style="register">register</Button></div>
-    </>    
-  )
+    </>
+  );
 }

@@ -1,5 +1,5 @@
 import useModal from "../hooks/useModal";
-import imageUrl from '../image/cake.png';
+import imageUrl from "../image/cake.png";
 
 export default function AnimationAddToBasket() {
   const { isShowAnimationToBasket = false } = useModal(); // ให้ค่าเริ่มต้นเป็น false

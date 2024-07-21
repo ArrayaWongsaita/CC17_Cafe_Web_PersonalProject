@@ -15,7 +15,7 @@ export default function OrderDetail({
   slipImage,
   status,
   showImage,
-  editOrder = null
+  editOrder = null,
 }) {
   const fileEl = useRef();
   const [file, setFile] = useState(null);
@@ -29,39 +29,38 @@ export default function OrderDetail({
     lastName: lastName,
   });
   const [isEdit, setIsEdit] = useState(false);
-  const [isLoading ,setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
-  const {successModal,    handleCloseModal,    showOrderItem} = useModalAdmin()
-  
+  const { successModal, handleCloseModal, showOrderItem } = useModalAdmin();
 
-  const handleSave = async () =>{
+  const handleSave = async () => {
     try {
-      setIsLoading(true)
-      const formData = new FormData()
-      formData.append("orderId",data.orderId)
-      if(file){formData.append("slipImage",file)}
-      formData.append("phone",data.phone)
-      formData.append("address",data.address)
-      formData.append("price",data.price)
-      formData.append("status",data.status)
-      formData.append("firstName",data.firstName)
-      formData.append("lastName",data.lastName)
-      
-      console.log(await editOrder(formData))
-      await successModal()
-      await setTimeout(() => {
-        handleCloseModal()
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append("orderId", data.orderId);
+      if (file) {
+        formData.append("slipImage", file);
+      }
+      formData.append("phone", data.phone);
+      formData.append("address", data.address);
+      formData.append("price", data.price);
+      formData.append("status", data.status);
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+
+      console.log(await editOrder(formData));
+      await successModal();
+      setTimeout(() => {
+        handleCloseModal();
       }, 800);
-      setFile(null)
-      setIsEdit(false)
+      setFile(null);
+      setIsEdit(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-       await setIsLoading(false)
+      setIsLoading(false);
     }
-
-
-  }
+  };
 
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
@@ -84,113 +83,114 @@ export default function OrderDetail({
   };
   const handleChangeImage = async () => {
     try {
-    await fileEl.current.click();
-
+      await fileEl.current.click();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  const handleShowDetail = () =>{
-
-    showOrderItem(orderId)
-  }
+  };
+  const handleShowDetail = () => {
+    showOrderItem(orderId);
+  };
 
   if (isEdit) {
     return (
       <>
-      {isLoading && <Spinner/>}
-      <div className=" flex h-full bg-customFooter px-5 gap-4 rounded-xl ">
-      
-        <div className="w-full flex flex-col gap-3 bg-customFooter  flex-wrap py-5 rounded-lg ">
-          <div className="flex items-center justify-start gap-10 flex-wrap">
-            <div className="w-30 flex gap-2 items-center text-customPink">
-              Order id <h1 className="text-customBrown">{orderId}</h1>
-            </div>
-            <div className="w-[350px] text-customPink flex items-center gap-5">
-              User name
-              <Input
-                onChange={handleChange}
-                value={data.firstName}
-                name={"firstName"}
-                placeholder={"First name"}
-                />
-              <Input
-                onChange={handleChange}
-                value={data.lastName}
-                name={"lastName"}
-                placeholder={"Last name"}
-                />{" "}
-            </div>
-            <div className="text-customPink flex items-center gap-5">
-              Phone
-              <Input
-                name={"phone"}
-                value={data.phone}
-                onChange={handleChange}
-                placeholder={"Phone"}
-                />{" "}
-            </div>
-            <div className="text-customPink flex items-center gap-5">
-              Price
-              <Input
-                name={"price"}
-                value={data.price}
-                onChange={handleChange}
-                placeholder={"price"}
-                />{" "}
-            </div>
-            <div className="text-customPink flex items-center gap-5">
-              Status
-              <div className="relative">
-                <select
-                  id="status"
-                  name="status"
-                  value={data.status}
+        {isLoading && <Spinner />}
+        <div className=" flex h-full bg-customFooter px-5 gap-4 rounded-xl ">
+          <div className="w-full flex flex-col gap-3 bg-customFooter  flex-wrap py-5 rounded-lg ">
+            <div className="flex items-center justify-start gap-10 flex-wrap">
+              <div className="w-30 flex gap-2 items-center text-customPink">
+                Order id <h1 className="text-customBrown">{orderId}</h1>
+              </div>
+              <div className="w-[350px] text-customPink flex items-center gap-5">
+                User name
+                <Input
                   onChange={handleChange}
-                  className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  value={data.firstName}
+                  name={"firstName"}
+                  placeholder={"First name"}
+                />
+                <Input
+                  onChange={handleChange}
+                  value={data.lastName}
+                  name={"lastName"}
+                  placeholder={"Last name"}
+                />{" "}
+              </div>
+              <div className="text-customPink flex items-center gap-5">
+                Phone
+                <Input
+                  name={"phone"}
+                  value={data.phone}
+                  onChange={handleChange}
+                  placeholder={"Phone"}
+                />{" "}
+              </div>
+              <div className="text-customPink flex items-center gap-5">
+                Price
+                <Input
+                  name={"price"}
+                  value={data.price}
+                  onChange={handleChange}
+                  placeholder={"price"}
+                />{" "}
+              </div>
+              <div className="text-customPink flex items-center gap-5">
+                Status
+                <div className="relative">
+                  <select
+                    id="status"
+                    name="status"
+                    value={data.status}
+                    onChange={handleChange}
+                    className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   >
-                  <option value="Pending; ">Pending</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
-                </select>
+                    <option value="Pending; ">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="w-full py-3 pr-5 text-customPink flex items-center gap-5">
+                Address
+                <Input
+                  name={"address"}
+                  value={data.address}
+                  onChange={handleChange}
+                  placeholder={"Address"}
+                />{" "}
               </div>
             </div>
           </div>
-          <div>
-            <div className="w-full py-3 pr-5 text-customPink flex items-center gap-5">
-              Address
-              <Input
-                name={"address"}
-                value={data.address}
-                onChange={handleChange}
-                placeholder={"Address"}
-                />{" "}
+          <div className="py-3 flex flex-col gap-3 justify-center">
+            <div className="w-40">
+              <Button onClick={handleSave}>Save</Button>
+            </div>
+            <div className="w-40">
+              <Button onClick={handleCancel}>Cancel</Button>
+            </div>
+
+            <input
+              type="file"
+              className="hidden"
+              ref={fileEl}
+              onChange={(e) => {
+                if (e.target.files[0]) {
+                  console.log(e.target.files[0]);
+                  setFile(e.target.files[0]);
+                }
+              }}
+            />
+
+            <div className="w-40">
+              <Button onClick={handleChangeImage}>Change Image</Button>
             </div>
           </div>
-
         </div>
-        <div className="py-3 flex flex-col gap-3 justify-center">
-          <div className="w-40">
-            <Button onClick={handleSave}>Save</Button>
-          </div>
-          <div className="w-40">
-            <Button onClick={handleCancel}>Cancel</Button>
-          </div>
-
-          <input type="file" className="hidden" ref={fileEl} onChange={e => {
-            if (e.target.files[0]) {
-              console.log(e.target.files[0])
-              setFile(e.target.files[0])
-              }
-              }} />
-
-          <div className="w-40">
-            <Button onClick={handleChangeImage}>Change Image</Button>
-          </div>
-        </div>
-      </div>
-            </>
+      </>
     );
   }
   return (
@@ -216,16 +216,17 @@ export default function OrderDetail({
             Status <h1 className="text-customBrown">{status}</h1>{" "}
           </div>
         </div>
-          <div className="w-full mt-5 pr-5 text-customPink flex items-center gap-5">
-            Address <h1 className="text-customBrown w-full">{address}</h1>{" "}
-          </div>
-        <div>
+        <div className="w-full mt-5 pr-5 text-customPink flex items-center gap-5">
+          Address <h1 className="text-customBrown w-full">{address}</h1>{" "}
         </div>
+        <div></div>
       </div>
       <div className="py-3 flex flex-col gap-2 justify-center ">
-        {    editOrder && <div className="w-40">
-          <Button onClick={() => setIsEdit(true)}>Edit</Button>
-        </div>}
+        {editOrder && (
+          <div className="w-40">
+            <Button onClick={() => setIsEdit(true)}>Edit</Button>
+          </div>
+        )}
         <div className="w-40">
           <Button onClick={handleShowDetail}>Show details</Button>
         </div>

@@ -1,22 +1,25 @@
-import { useState, useRef } from 'react';
-import Button from '../../../components/Button';
-import qrCodeImage from '../../../image/qrCode.png';
-import Spinner from '../../../components/Spinner';
-import useModal from '../../../hooks/useModal';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef } from "react";
+import Button from "../../../components/Button";
+import qrCodeImage from "../../../image/qrCode.png";
+import Spinner from "../../../components/Spinner";
+import useModal from "../../../hooks/useModal";
+import { useNavigate } from "react-router-dom";
 
-export default function UploadSlipAndOrderDetail({ orderDetail, AllOrderItem = [] }) {
+export default function UploadSlipAndOrderDetail({
+  orderDetail,
+  AllOrderItem = [],
+}) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const fileEl = useRef();
-  const {createOrderAndCloseModal} =  useModal()
-  const navigate = useNavigate()
+  const { createOrderAndCloseModal } = useModal();
+  const navigate = useNavigate();
 
   const handleOnclick = async () => {
     fileEl.current.click(); // กระตุ้นให้คลิก input ของไฟล์
   };
-  console.log(orderDetail,"---------------")
+  console.log(orderDetail, "---------------");
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -37,34 +40,41 @@ export default function UploadSlipAndOrderDetail({ orderDetail, AllOrderItem = [
 
   const handleConfirmOrder = async () => {
     try {
-      console.log("confirm")
+      console.log("confirm");
 
-      setIsLoading(true)
-      if(!file|| !orderDetail.totalPayMent || orderDetail.lastName || orderDetail.firsNam ||orderDetail.phone  || isNaN(+orderDetail.totalPayMent) || !orderDetail.address){
-        console.log("empty")
+      setIsLoading(true);
+      if (
+        !file ||
+        !orderDetail.totalPayMent ||
+        orderDetail.lastName ||
+        orderDetail.firsNam ||
+        orderDetail.phone ||
+        isNaN(+orderDetail.totalPayMent) ||
+        !orderDetail.address
+      ) {
+        console.log("empty");
       }
-      const formData = new FormData()
+      const formData = new FormData();
 
-      formData.append("slipImage",file)
-      formData.append("firstName",orderDetail.firstName)
-      formData.append("lastName",orderDetail.lastName)
-      formData.append("price",orderDetail.totalPayMent)
-      formData.append("phone",orderDetail.phone)
-      formData.append("address",orderDetail.address)
-      await createOrderAndCloseModal(formData)
-      await navigate('/ordered/pending')
-
-
+      formData.append("slipImage", file);
+      formData.append("firstName", orderDetail.firstName);
+      formData.append("lastName", orderDetail.lastName);
+      formData.append("price", orderDetail.totalPayMent);
+      formData.append("phone", orderDetail.phone);
+      formData.append("address", orderDetail.address);
+      await createOrderAndCloseModal(formData);
+      navigate("/ordered/pending");
+      window.location.reload();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <>
-        {isLoading && <Spinner/>}
+      {isLoading && <Spinner />}
       <input
         ref={fileEl}
         id="file-upload"

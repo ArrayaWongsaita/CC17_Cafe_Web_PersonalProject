@@ -13,6 +13,7 @@ export default function ProductContainerProvider({ children }) {
     const fetchProduct = async () => {
       try {
         const res = await productApi.getAllProduct();
+        console.log(res);
         setProducts(res.data.products);
       } catch (error) {
         console.log(error);
@@ -25,36 +26,35 @@ export default function ProductContainerProvider({ children }) {
 
   const createProduct = async (formData) => {
     try {
-      const res =   await productApi.createProduct(formData)
-      if(res){
-        const newProduct = res.data
-        setProducts([newProduct,...products])
+      const res = await productApi.createProduct(formData);
+      if (res) {
+        const newProduct = res.data;
+        setProducts([newProduct, ...products]);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-  }
+  };
   const editProduct = async (formData) => {
     try {
-      const res = await productApi.editProduct(formData)
-      console.log(res)
-      const newdata = products.map(item=>{
-        if(item.id === res.data.id)return res.data
-        return item
-      })
-      setProducts(newdata)
+      const res = await productApi.editProduct(formData);
+      console.log(res);
+      const newdata = products.map((item) => {
+        if (item.id === res.data.id) return res.data;
+        return item;
+      });
+      setProducts(newdata);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const value = {
-    createProduct ,
+    createProduct,
     products,
     isProductLoading,
     setProducts,
-    editProduct
+    editProduct,
   };
 
   return (

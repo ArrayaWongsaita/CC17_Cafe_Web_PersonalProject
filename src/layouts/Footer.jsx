@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -12,17 +12,17 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex space-x-4 mb-4">
-          <a 
-            href="https://www.facebook.com/" 
-            target="_blank" 
+          <a
+            href="https://www.facebook.com/"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-gray-300"
           >
             <FaFacebook size={32} />
           </a>
-          <a 
-            href="https://www.instagram.com/" 
-            target="_blank" 
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-gray-300"
           >

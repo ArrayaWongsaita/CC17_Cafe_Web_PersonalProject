@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function AddToBasketFrom({ image, price, productId }) {
   const [amount, setAmount] = useState(1);
   const { addToBasket } = useModal();
-  const navagate = useNavigate()
+  const navagate = useNavigate();
 
   const handleAddToBasket = () => {
     const body = {
@@ -23,10 +23,10 @@ export default function AddToBasketFrom({ image, price, productId }) {
       };
       await addToBasket(body);
       await setTimeout(() => {
-        navagate('/cart')
-      }, 800); 
+        navagate("/cart");
+      }, 800);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -72,7 +72,9 @@ export default function AddToBasketFrom({ image, price, productId }) {
         </Button>
       </div>
       <div className="w-full ">
-        <Button onClick={handleByNow} style="byNow">By now</Button>
+        <Button onClick={handleByNow} style="byNow">
+          By now
+        </Button>
       </div>
     </div>
   );
